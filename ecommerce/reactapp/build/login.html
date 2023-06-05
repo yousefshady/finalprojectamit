@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+    <div class="container logincontainer">
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <br>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email">
+            <br>
+            <input type="password" class="form-control" name="password" placeholder="Enter your password">
+            <hr>
+            <span><a href="{% url 'register' %}" class="dha">Don't have an account? Sign up</a></span>
+            <br>
+            <span class="fp"><a href="{% url 'resetpass' %}" class="fp">Forgot password?</a></span>
+            <br>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" role="alert">{{message}}</div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+    </div>
+
+{% endblock content %}

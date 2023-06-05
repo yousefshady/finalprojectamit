@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="centercont">
+<h1>Password reset successfully!</h1>
+<p>Your password has been changed successfully, feel free to log in now.</p>
+<br>
+<a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Orders{% endblock title %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success" role="alert">{{message}}</div>
+    {% else %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+<br>
+<h1>Orders</h1>
+<br>
+{% for order in orders %}
+<div class="card">
+    <h5 class="card-header">Order id: {{order.id}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Order items</h5>
+      {% for orderitem in orderitems %}
+      <p class="card-text">Product: {{orderitem.product}} | Price: EGP {{orderitem.price}} | Quantity: {{orderitem.quantity}} | Shipping status: <span class="badge rounded-pill text-capitalize {{order.shipping_status}}">{{order.shipping_status}}</span> | Order status: <span class="badge rounded-pill text-capitalize {{order.status}}">{{order.status}}</span></p>
+      {% endfor %}
+      <h4>Total cost: EGP {{order.total_cost}}</h4>
+      {% if order.status == 'cancelled' %}
+      <a href="{% url 'uncancelorder' order.id%}" class="btn btn-primary">Uncancel order</a>
+      {% else %}
+      <a href="{% url 'cancelorder' order.id%}" class="btn btn-primary">Cancel order</a>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock content %}

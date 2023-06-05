@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Wishlist{% endblock title %}
+{% block content %}
+<div class="container">
+<br>
+<h1>Wishlist</h1>
+<br>
+{% comment %} <ul class="list-group list-group-horizontal-xxl w-50">
+    <li class="list-group-item">Name: {{item.product.name}} | Price per unit: EGP {{item.product.price}} | Quantity: {{item.quantity}} <a href="{% url 'changequantity' item.product.id%}?action=increase" title="Increase quantity"><i class="fa-solid fa-arrow-up"></i></a><a href="{% url 'changequantity' item.product.id%}?action=decrease" title="Decrease quantity"><i class="fa-solid fa-arrow-down"></i></a>| <a href={% url 'removefromcart' item.product.id%} title="Remove item from cart"><i class="fa-solid fa-trash-can trashicon" style="color: #ff0000;"></i></a></li>
+</ul>
+{% endcomment %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in wishlist %}
+      <tr>
+        <th scope="row">{{item.product.id}}</th>
+        <td>{{item.product.name}}</td>
+        {% if item.product.sale_price %}
+        <td><span><s>EGP {{item.product.price}}</s> | </span>EGP {{item.product.sale_price}}</td>
+        {% else %}
+        <td>EGP {{item.product.price}}</td>
+        {% endif %}
+        <td><a href={% url 'removefromwishlist' item.product.id %} title="Remove item from wishlist"><i class="fa-solid fa-trash-can trashicon" style="color: #ff0000;"></i></a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

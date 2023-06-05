@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Cart{% endblock title %}
+{% block content %}
+<div class="container">
+<br>
+<h1>Cart</h1>
+<br>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+      <tr>
+        <th scope="row">{{item.product.id}}</th>
+        <td>{{item.product.name}}</td>
+        {% if item.product.sale_price %}
+        <td><span><s>EGP {{item.product.price}}</s> | </span>EGP {{item.product.sale_price}}</td>
+        {% else %}
+        <td>EGP {{item.product.price}}</td>
+        {% endif %}
+        <td>{{item.quantity}} | <a href="{% url 'changequantity' item.product.id %}?action=increase" title="Increase quantity"><i class="fa-solid fa-arrow-up"></i></a><a href="{% url 'changequantity' item.product.id%}?action=decrease" title="Decrease quantity"><i class="fa-solid fa-arrow-down"></i></a></td>
+        <td><a href={% url 'removefromcart' item.product.id %} title="Remove item from cart"><i class="fa-solid fa-trash-can trashicon" style="color: #ff0000;"></i></a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+<br>
+<h3>Total price: EGP {{ cart.gettotalcost }} </h3>
+<hr class="mt-3 mb-3">
+<a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+</div>
+{% endblock content %}

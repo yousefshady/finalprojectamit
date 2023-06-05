@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block content %}
+<div class="centercont text-center">
+    <h4>Username: {{user.username}}</h4>
+    <h4>Email: {{user.email}}</h4>
+    <h4>Phone number: 
+    {% if user.phone %}
+    {{user.phone}}
+    {% else %}
+    No phone number provided
+    {% endif %}</h4>
+    <br>
+    <a href="{% url 'updateuser' %}" class="btn btn-primary">Edit profile</a>
+    {% comment %} <a href="{% url 'updateuser' %}" class="btn btn-primary">Edit profile</a> {% endcomment %}
+</div>
+{% endblock content %}

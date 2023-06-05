@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<hr class="mb-0 mt-0">
+<nav class="navbar bg-body-tertiary d-flex justify-content-center text-center mb-5">
+  <div class="width100">
+    <form class="d-flex justify-content-center width100" role="search" action="/search">
+      <input name="query" class="form-control me-2 width50" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success border100" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
+</nav>
+<div class="container">
+{% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert alert-success" role="alert">{{message}}</div>
+{% endif %}
+<div class="alert alert-danger" role="alert">{{message}}</div>
+{% endfor %}
+{% endif %}
+</div>
+<h1 class="blockcenter">Our Products</h1>
+<br>
+<br>
+<div class="container prodcont">
+{% if products %}
+{% for product in products %}
+<div class="card cardcss" style="width: 18rem;">
+    <img src={{product.thumbnail.url}} class="card-img-top cardimg" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'detailed' product.id %}" class="pd">{{product.name}}</a></h5>
+      <p class="card-text">{{product.description}}</p>
+      {% if product.sale_price > 0 %}
+      <strong>SALE!</strong>
+      <p><span><s>EGP {{product.price}}</s> | </span>EGP {{product.sale_price}}</p>
+      {% else %}
+      <p>EGP {{product.price}}</p>
+      {% endif %}
+      <a href={% url 'addtocart' product.id%} class="btn btn-primary"title="Add to cart +">Add to cart +</a>
+      <a href={% url 'addtowishlist' product.id%} class="btn btn-primary"title="Add to wishlist +"><i class="fa-solid fa-star" style="color: yellow;"></i></a>
+    </div>
+  </div>
+{% endfor %}
+{% else %}
+<div class="centercont">
+  <h1>No products available for now</h1>
+</div>
+{% endif %}
+</div>
+{% endblock content %}

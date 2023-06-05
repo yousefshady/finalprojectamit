@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{product.name}}{% endblock title %}
+{% block content %}
+<div class="container pdcont">
+    <img src="{{product.thumbnail.url}}">
+    <br>
+    <h1>Name: {{product.name}}</h1>
+    <p>Description: {{product.description}}</p>
+    {% if product.sale_price > 0 %}
+    <strong>SALE!</strong>
+    <p><s>EGP {{product.price}}</s> | EGP {{product.sale_price}}</p>
+    {% else %}
+    <p>EGP {{product.price}}</p>
+    {% endif %}
+    <strong>Categories: </strong>
+    {% if categories %}
+    {% for i in categories %}
+    <span class="categorybtn">{{i}}</span>
+    {% endfor %}
+    {% else %}
+    <span>No categories found for this product</span>
+    {% endif %}
+    <br>
+    <br>
+    <a href="{% url 'addtocart' product.id%}"><button type="button" class="btn btn-primary">Add to cart +</button></a>
+    <a href="{% url 'addtowishlist' product.id%}"><button type="button" class="btn btn-primary">Add to wishlist +</button></a>
+</div>
+{% endblock content %}
