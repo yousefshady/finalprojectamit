@@ -66,7 +66,12 @@ Admin side:
         To stop the server just enter the terminal and click Ctrl + C on Windows or Cmd + C on Mac
     5. Using the admin panel:
         
-        To open the admin panel go to localhost:8000/admin or your website domain /admin
+        To open the admin panel go to localhost:8000/admin or your website domain /admin and login to access the admin panel
+        
+        If you don't have a superuser account just use this command
+        ```cmd
+        py manage.py createsuperuser
+        ```
 
     6. Setting up the email system:
 
