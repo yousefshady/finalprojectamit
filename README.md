@@ -68,7 +68,7 @@ Admin side:
         
         To open the admin panel go to localhost:8000/admin or your website domain /admin and login to access the admin panel
         
-        If you don't have a superuser account just use this command
+        If you don't have a superuser account just use this command to create one
         ```cmd
         py manage.py createsuperuser
         ```
